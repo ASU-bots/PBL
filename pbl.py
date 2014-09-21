@@ -13,7 +13,7 @@ from multiprocessing import Process
 class screen_grab:
 	def __init__(self):
 		self.t1=time.clock()
-
+		self.running=True
 	def get_screen_area(self, function, fps):
 		"""Grabs a portion of the screen and sends it to function at fps rate.
 
@@ -48,7 +48,7 @@ class screen_grab:
 
 			bmp=ImageGrab.grab(box)
 			#the following is courtesy of http://stackoverflow.com/a/24213099
-			cvImage= np.array(bmp.getdata(),dtype=uint8).reshape((bmp.size[1],bmp.size[0]),3)
+			cvImage= np.array(bmp.getdata(),dtype="uint8").reshape((bmp.size[1],bmp.size[0],3))
 			function(frame=cvImage)
 
 			
@@ -107,4 +107,6 @@ def get_screen_object(name,times=1):
 	return file_list
 
 if __name__=="__main__":
-	get_screen_object("test",6)
+	get_screen_object("ball",3)
+	get_screen_object("paddle",3)
+
